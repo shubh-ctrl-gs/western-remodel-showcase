@@ -64,6 +64,12 @@ function Index() {
         aria-hidden
         className={`logo-intro ${introDone ? "logo-intro-done" : ""}`}
       />
+
+      <div
+        className={
+          introDone ? "wmfr-reveal" : "wmfr-reveal wmfr-reveal-hidden"
+        }
+      >
       {/* 1. Utility Bar */}
       <div className="utility-bar h-9 w-full">
         <div className="section-shell flex h-full items-center justify-end gap-6">
