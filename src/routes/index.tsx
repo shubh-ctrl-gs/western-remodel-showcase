@@ -6,6 +6,9 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       {
+        title: "Western Multi-Family Remodel | Fast-Track CAPEX Renovations",
+      },
+      {
         name: "description",
         content:
           "Western Multi-Family Remodel fast-tracks comprehensive CAPEX interior remodels on large, occupied multi-family communities — up to 1,200+ units.",
