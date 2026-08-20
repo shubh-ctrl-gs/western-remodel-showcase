@@ -59,15 +59,15 @@
   --radius: 0.5rem;
 
   /* brand core */
-  --navy: oklch(0.209 0.076 264);          /* #0A192F dark navy */
-  --navy-deep: oklch(0.165 0.066 264);      /* deeper navy for drone bg */
+  --navy: oklch(0.209 0.076 264); /* #0A192F dark navy */
+  --navy-deep: oklch(0.165 0.066 264); /* deeper navy for drone bg */
   --navy-foreground: oklch(1 0 0);
-  --slate: oklch(0.368 0.052 257);         /* #334155 slate gray */
+  --slate: oklch(0.368 0.052 257); /* #334155 slate gray */
   --slate-foreground: oklch(1 0 0);
-  --amber: oklch(0.79 0.165 71);           /* #F59E0B construction amber */
+  --amber: oklch(0.79 0.165 71); /* #F59E0B construction amber */
   --amber-foreground: oklch(1 0 0);
-  --amber-bright: oklch(0.83 0.155 75);    /* lighter hover */
-  --amber-soft: oklch(0.92 0.075 80);      /* soft amber tint */
+  --amber-bright: oklch(0.83 0.155 75); /* lighter hover */
+  --amber-soft: oklch(0.92 0.075 80); /* soft amber tint */
 
   /* semantic mapping */
   --background: oklch(1 0 0);
@@ -181,7 +181,9 @@
   padding: 0.7rem 1.4rem;
   border-radius: 0.5rem;
   box-shadow: 0 8px 18px -8px oklch(0.79 0.165 71 / 0.6);
-  transition: background-color 0.18s ease, transform 0.18s ease,
+  transition:
+    background-color 0.18s ease,
+    transform 0.18s ease,
     box-shadow 0.18s ease;
 }
 .cta-quote:hover {
@@ -295,7 +297,9 @@
   font-weight: 800;
   border-radius: 0.6rem;
   box-shadow: 0 16px 40px -12px oklch(0 0 0 / 0.55);
-  transition: background-color 0.18s ease, transform 0.18s ease;
+  transition:
+    background-color 0.18s ease,
+    transform 0.18s ease;
 }
 .drone-cta:hover {
   background-color: var(--amber-bright);

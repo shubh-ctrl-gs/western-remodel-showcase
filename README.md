@@ -20,17 +20,17 @@ Component Structure:
 
    - Right: Horizontal nav bar with tabs:
 
-     * Home
+     - Home
 
-     * About
+     - About
 
-     * Services [Include pill badge "NEW: Custom Remodel"]
+     - Services [Include pill badge "NEW: Custom Remodel"]
 
-     * Our Process
+     - Our Process
 
-     * Portfolio / Case Studies
+     - Portfolio / Case Studies
 
-     * Contact
+     - Contact
 
    - Far Right: "Request a Quote" CTA Button (Amber background, white bold text).
 
