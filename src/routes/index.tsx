@@ -128,13 +128,16 @@ function Index() {
   return (
     <div className="min-h-screen bg-background">
       {/* Logo intro overlay (runs once on load, then hidden) */}
-      <img
-        ref={overlayRef}
-        src={logoUrl}
-        alt=""
-        aria-hidden
-        className={`logo-intro ${introDone ? "logo-intro-done" : ""}`}
-      />
+      {!overlayGone && (
+        <img
+          ref={overlayRef}
+          src={logoUrl}
+          alt=""
+          aria-hidden
+          className={`logo-intro ${introDone ? "logo-intro-fade" : ""}`}
+        />
+      )}
+
 
       <div
         className={introDone ? "wmfr-reveal" : "wmfr-reveal-hidden"}
