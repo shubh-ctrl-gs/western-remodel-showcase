@@ -109,8 +109,18 @@ function Index() {
       anim.finished
         .then(() => {
           if (cancelled) return;
+          try {
+            anim.commitStyles();
+            anim.cancel();
+          } catch {
+            /* noop */
+          }
           setIntroDone(true);
-          hideTimer = setTimeout(() => setOverlayGone(true), 600);
+          // let the revealed header logo take over, then fade the overlay out
+          requestAnimationFrame(() => {
+            el.style.opacity = "0";
+          });
+          hideTimer = setTimeout(() => setOverlayGone(true), 700);
         })
         .catch(() => {});
     };
