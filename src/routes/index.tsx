@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useRef, useState } from "react";
 import logoUrl from "@/assets/wmfr-logo.svg";
 import droneAerial from "@/assets/drone-aerial.jpg";
 
@@ -42,8 +43,27 @@ const NAV = [
 ];
 
 function Index() {
+  const overlayRef = useRef<HTMLImageElement>(null);
+  const [introDone, setIntroDone] = useState(false);
+
+  useEffect(() => {
+    const el = overlayRef.current;
+    if (!el) return;
+    const done = () => setIntroDone(true);
+    el.addEventListener("animationend", done);
+    return () => el.removeEventListener("animationend", done);
+  }, []);
+
   return (
     <div className="min-h-screen bg-background">
+      {/* Logo intro overlay (runs once on load, then hidden) */}
+      <img
+        ref={overlayRef}
+        src={logoUrl}
+        alt=""
+        aria-hidden
+        className={`logo-intro ${introDone ? "logo-intro-done" : ""}`}
+      />
       {/* 1. Utility Bar */}
       <div className="utility-bar h-9 w-full">
         <div className="section-shell flex h-full items-center justify-end gap-6">
