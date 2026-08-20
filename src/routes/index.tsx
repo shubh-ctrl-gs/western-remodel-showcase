@@ -231,6 +231,7 @@ function Index() {
 
       {/* spacer for sticky nav anchors */}
       <div id="case-study" className="h-24" />
+      </div>
     </div>
   );
 }
