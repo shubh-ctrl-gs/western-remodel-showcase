@@ -66,9 +66,7 @@ function Index() {
       />
 
       <div
-        className={
-          introDone ? "wmfr-reveal" : "wmfr-reveal wmfr-reveal-hidden"
-        }
+        className={introDone ? "wmfr-reveal" : "wmfr-reveal-hidden"}
       >
       {/* 1. Utility Bar */}
       <div className="utility-bar h-9 w-full">
