@@ -165,6 +165,7 @@ function Index() {
           {/* Logo container */}
           <a href="#home" className="flex items-center" aria-label="Western Multi-Family Remodel home">
             <img
+              ref={headerLogoRef}
               src={logoUrl}
               alt="Western Multi-Family Remodel"
               className="h-[3.75rem] w-auto"
