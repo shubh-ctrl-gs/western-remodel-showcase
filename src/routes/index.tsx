@@ -21,7 +21,7 @@ export const Route = createFileRoute("/")({
           "Fast-track occupied multi-family interior remodels at scale — 1,151 units delivered for AvalonBay Communities at AVA Toluca Hills.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:image", content: droneAerial },
+      { property: "og:image", content: droneMapAsset.url },
       { name: "twitter:title", content: "Western Multi-Family Remodel" },
       {
         name: "twitter:description",
@@ -265,12 +265,10 @@ function Index() {
         <section id="portfolio" className="drone-section h-[600px] w-full">
           {/* orthomosaic image */}
           <img
-            src={droneAerial}
+            src={droneMapAsset.url}
             alt="Aerial drone orthomosaic site map of the AVA Toluca Hills multi-family community"
             className="drone-img absolute inset-0 h-full w-full object-cover"
             loading="lazy"
-            width={1920}
-            height={768}
           />
           {/* overlays */}
           <div className="drone-grid absolute inset-0 opacity-60" aria-hidden />
