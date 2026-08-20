@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useRef, useState } from "react";
 import logoUrl from "@/assets/wmfr-logo.svg";
 import droneAerial from "@/assets/drone-aerial.jpg";
 
