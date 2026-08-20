@@ -313,62 +313,24 @@
 /* ---- logo intro animation (Option B) ----
    A fixed-position overlay runs the keyframe sequence on load, then is
    hidden via JS (animationend) so the resting header logo takes over. */
-@keyframes wmfr-logo-intro {
-  0% {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(2);
-    opacity: 0.3;
-    filter: drop-shadow(0 0 0 transparent);
-  }
-  35% {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(2.3);
-    opacity: 1;
-    filter:
-      drop-shadow(4px 4px 0px var(--amber))
-      drop-shadow(8px 8px 12px rgba(0, 0, 0, 0.5));
-  }
-  55% {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(2.3);
-    opacity: 1;
-    filter: brightness(1.8);
-  }
-  80% {
-    top: 46px;
-    left: 40px;
-    transform: translate(0, 0) scale(1);
-    opacity: 1;
-    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.12));
-  }
-  100% {
-    top: 46px;
-    left: 40px;
-    transform: translate(0, 0) scale(1);
-    opacity: 1;
-    filter: none;
-  }
-}
-
 .logo-intro {
   position: fixed;
-  top: 50%;
-  left: 50%;
+  top: 0;
+  left: 0;
   z-index: 100;
   height: 3.75rem;
   width: auto;
   max-width: none;
-  transform-origin: center center;
+  transform-origin: top left;
   pointer-events: none;
-  animation: wmfr-logo-intro 2.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  will-change: transform, opacity, filter, top, left;
+  backface-visibility: hidden;
+  opacity: 0;
+  will-change: transform, opacity, filter;
+  transition: opacity 0.5s ease-out;
 }
 
-.logo-intro-done {
-  display: none;
+.logo-intro-fade {
+  opacity: 0;
 }
 
 /* ---- homepage reveal (after logo intro) ---- */
@@ -377,15 +339,13 @@
   pointer-events: none;
 }
 .wmfr-reveal {
-  animation: wmfr-reveal 0.7s ease-out forwards;
+  animation: wmfr-reveal 0.8s ease-out forwards;
 }
 @keyframes wmfr-reveal {
   from {
     opacity: 0;
-    transform: translateY(8px);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
   }
 }

@@ -44,26 +44,110 @@ const NAV = [
 
 function Index() {
   const overlayRef = useRef<HTMLImageElement>(null);
+  const headerLogoRef = useRef<HTMLImageElement>(null);
   const [introDone, setIntroDone] = useState(false);
+  const [overlayGone, setOverlayGone] = useState(false);
 
   useEffect(() => {
     const el = overlayRef.current;
-    if (!el) return;
-    const done = () => setIntroDone(true);
-    el.addEventListener("animationend", done);
-    return () => el.removeEventListener("animationend", done);
+    const target = headerLogoRef.current;
+    if (!el || !target) return;
+
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) {
+      setIntroDone(true);
+      setOverlayGone(true);
+      return;
+    }
+
+    let cancelled = false;
+    let hideTimer: ReturnType<typeof setTimeout> | undefined;
+
+    const run = () => {
+      if (cancelled) return;
+      const r = target.getBoundingClientRect();
+      const w = r.width || el.offsetWidth;
+      const h = r.height || el.offsetHeight;
+      const scale = 2.2;
+      const startX = window.innerWidth / 2 - (w * scale) / 2;
+      const startY = window.innerHeight / 2 - (h * scale) / 2;
+
+      const anim = el.animate(
+        [
+          {
+            transform: `translate3d(${startX}px, ${startY}px, 0) scale(${scale})`,
+            opacity: 0.3,
+            filter: "drop-shadow(0 0 0 rgba(245,158,11,0))",
+            offset: 0,
+          },
+          {
+            transform: `translate3d(${startX}px, ${startY}px, 0) scale(${scale})`,
+            opacity: 1,
+            filter: "drop-shadow(4px 4px 0px rgba(245,158,11,0.9)) drop-shadow(8px 8px 14px rgba(0,0,0,0.35))",
+            offset: 0.42,
+          },
+          {
+            transform: `translate3d(${startX}px, ${startY}px, 0) scale(${scale})`,
+            opacity: 1,
+            filter: "drop-shadow(0 0 0 rgba(245,158,11,0))",
+            offset: 0.58,
+          },
+          {
+            transform: `translate3d(${r.left}px, ${r.top}px, 0) scale(1)`,
+            opacity: 1,
+            filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.10))",
+            offset: 1,
+          },
+        ],
+        {
+          duration: 2200,
+          easing: "cubic-bezier(0.65, 0, 0.2, 1)",
+          fill: "forwards",
+        },
+      );
+
+      anim.finished
+        .then(() => {
+          if (cancelled) return;
+          try {
+            anim.commitStyles();
+            anim.cancel();
+          } catch {
+            /* noop */
+          }
+          setIntroDone(true);
+          // let the revealed header logo take over, then fade the overlay out
+          requestAnimationFrame(() => {
+            el.style.opacity = "0";
+          });
+          hideTimer = setTimeout(() => setOverlayGone(true), 700);
+        })
+        .catch(() => {});
+    };
+
+    // wait for layout + fonts/image so the measured target is final
+    const raf = requestAnimationFrame(() => requestAnimationFrame(run));
+
+    return () => {
+      cancelled = true;
+      cancelAnimationFrame(raf);
+      if (hideTimer) clearTimeout(hideTimer);
+    };
   }, []);
 
   return (
     <div className="min-h-screen bg-background">
       {/* Logo intro overlay (runs once on load, then hidden) */}
-      <img
-        ref={overlayRef}
-        src={logoUrl}
-        alt=""
-        aria-hidden
-        className={`logo-intro ${introDone ? "logo-intro-done" : ""}`}
-      />
+      {!overlayGone && (
+        <img
+          ref={overlayRef}
+          src={logoUrl}
+          alt=""
+          aria-hidden
+          className={`logo-intro ${introDone ? "logo-intro-fade" : ""}`}
+        />
+      )}
+
 
       <div
         className={introDone ? "wmfr-reveal" : "wmfr-reveal-hidden"}
@@ -91,6 +175,7 @@ function Index() {
           {/* Logo container */}
           <a href="#home" className="flex items-center" aria-label="Western Multi-Family Remodel home">
             <img
+              ref={headerLogoRef}
               src={logoUrl}
               alt="Western Multi-Family Remodel"
               className="h-[3.75rem] w-auto"
