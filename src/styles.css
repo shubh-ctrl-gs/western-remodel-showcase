@@ -370,3 +370,22 @@
 .logo-intro-done {
   display: none;
 }
+
+/* ---- homepage reveal (after logo intro) ---- */
+.wmfr-reveal-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+.wmfr-reveal {
+  animation: wmfr-reveal 0.7s ease-out forwards;
+}
+@keyframes wmfr-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
